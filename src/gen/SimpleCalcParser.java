@@ -20,12 +20,12 @@ public class SimpleCalcParser extends Parser {
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, ID=19, NUMBER=20, WS=21, COMMENT=22;
 	public static final int
-		RULE_program = 0, RULE_statement = 1, RULE_variableDecl = 2, RULE_assigment = 3, 
+		RULE_program = 0, RULE_statement = 1, RULE_variableDecl = 2, RULE_assignment = 3, 
 		RULE_whileLoop = 4, RULE_printStmt = 5, RULE_condition = 6, RULE_compareOp = 7, 
 		RULE_expr = 8, RULE_addOp = 9, RULE_mulOp = 10;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"program", "statement", "variableDecl", "assigment", "whileLoop", "printStmt", 
+			"program", "statement", "variableDecl", "assignment", "whileLoop", "printStmt", 
 			"condition", "compareOp", "expr", "addOp", "mulOp"
 		};
 	}
@@ -162,8 +162,8 @@ public class SimpleCalcParser extends Parser {
 		public VariableDeclContext variableDecl() {
 			return getRuleContext(VariableDeclContext.class,0);
 		}
-		public AssigmentContext assigment() {
-			return getRuleContext(AssigmentContext.class,0);
+		public AssignmentContext assignment() {
+			return getRuleContext(AssignmentContext.class,0);
 		}
 		public WhileLoopContext whileLoop() {
 			return getRuleContext(WhileLoopContext.class,0);
@@ -208,7 +208,7 @@ public class SimpleCalcParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(28);
-				assigment();
+				assignment();
 				}
 				break;
 			case T__2:
@@ -293,33 +293,33 @@ public class SimpleCalcParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class AssigmentContext extends ParserRuleContext {
+	public static class AssignmentContext extends ParserRuleContext {
 		public TerminalNode ID() { return getToken(SimpleCalcParser.ID, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
-		public AssigmentContext(ParserRuleContext parent, int invokingState) {
+		public AssignmentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_assigment; }
+		@Override public int getRuleIndex() { return RULE_assignment; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimpleCalcListener ) ((SimpleCalcListener)listener).enterAssigment(this);
+			if ( listener instanceof SimpleCalcListener ) ((SimpleCalcListener)listener).enterAssignment(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimpleCalcListener ) ((SimpleCalcListener)listener).exitAssigment(this);
+			if ( listener instanceof SimpleCalcListener ) ((SimpleCalcListener)listener).exitAssignment(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof SimpleCalcVisitor ) return ((SimpleCalcVisitor<? extends T>)visitor).visitAssigment(this);
+			if ( visitor instanceof SimpleCalcVisitor ) return ((SimpleCalcVisitor<? extends T>)visitor).visitAssignment(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final AssigmentContext assigment() throws RecognitionException {
-		AssigmentContext _localctx = new AssigmentContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_assigment);
+	public final AssignmentContext assignment() throws RecognitionException {
+		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_assignment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{

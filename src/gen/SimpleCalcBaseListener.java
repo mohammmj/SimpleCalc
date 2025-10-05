@@ -52,13 +52,13 @@ public class SimpleCalcBaseListener implements SimpleCalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssigment(SimpleCalcParser.AssigmentContext ctx) { }
+	@Override public void enterAssignment(SimpleCalcParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssigment(SimpleCalcParser.AssigmentContext ctx) { }
+	@Override public void exitAssignment(SimpleCalcParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

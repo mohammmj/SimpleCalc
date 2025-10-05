@@ -52,7 +52,7 @@ rule names:
 program
 statement
 variableDecl
-assigment
+assignment
 whileLoop
 printStmt
 condition
