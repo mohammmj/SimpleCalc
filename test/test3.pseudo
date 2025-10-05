@@ -1,0 +1,24 @@
+push 20
+pop a
+push 5
+pop b
+push 0
+pop c
+push a
+push b
+add
+pop c
+push c
+print
+push a
+push b
+sub
+pop c
+push c
+print
+push a
+push b
+mul
+pop c
+push c
+print

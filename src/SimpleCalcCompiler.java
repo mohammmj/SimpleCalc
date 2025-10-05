@@ -80,37 +80,33 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
 
     @Override
     public void exitCondition(SimpleCalcParser.ConditionContext ctx) {
-
         String op = ctx.compareOp().getText();
 
         switch (op) {
             case "<":
                 pseudoCode.add("lt");
+                pseudoCode.add("not");
                 break;
             case ">":
                 pseudoCode.add("gt");
+                pseudoCode.add("not");
                 break;
             case "<=":
                 pseudoCode.add("gt");
-                pseudoCode.add("not");
                 break;
             case ">=":
                 pseudoCode.add("lt");
-                pseudoCode.add("not");
                 break;
             case "==":
                 pseudoCode.add("eq");
+                pseudoCode.add("not");
                 break;
             case "!=":
                 pseudoCode.add("eq");
-                pseudoCode.add("not");
                 break;
         }
 
-        pseudoCode.add("not");
-
         int loopId = loopStack.peek();
-
         pseudoCode.add("if-goto exitLoop" + loopId);
     }
 

@@ -1,0 +1,21 @@
+  push constant 0
+  pop static 0
+  push constant 1
+  pop static 1
+label enterLoop1
+  push static 1
+  push constant 10
+gt
+if-goto exitLoop1
+  push static 0
+  push static 1
+add
+  pop static 0
+  push static 1
+  push constant 1
+add
+  pop static 1
+goto enterLoop1
+label exitLoop1
+  push static 0
+  pop that 16384

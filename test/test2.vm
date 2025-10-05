@@ -1,0 +1,38 @@
+  push constant 0
+  pop static 0
+  push constant 0
+  pop static 1
+  push constant 0
+  pop static 2
+label enterLoop1
+  push static 1
+  push constant 5
+lt
+not
+if-goto exitLoop1
+  push constant 0
+  pop static 2
+label enterLoop2
+  push static 2
+  push constant 3
+lt
+not
+if-goto exitLoop2
+  push static 0
+  push constant 1
+add
+  pop static 0
+  push static 2
+  push constant 1
+add
+  pop static 2
+goto enterLoop2
+label exitLoop2
+  push static 1
+  push constant 1
+add
+  pop static 1
+goto enterLoop1
+label exitLoop1
+  push static 0
+  pop that 16384

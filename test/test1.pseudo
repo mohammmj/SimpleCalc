@@ -6,8 +6,6 @@ label enterLoop1
 push i
 push 10
 gt
-not
-not
 if-goto exitLoop1
 push sum
 push i
