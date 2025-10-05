@@ -1,0 +1,38 @@
+push 0
+pop result
+push 0
+pop i
+push 0
+pop j
+label enterLoop1
+push i
+push 5
+lt
+not
+if-goto exitLoop1
+push 0
+pop j
+label enterLoop2
+push j
+push 3
+lt
+not
+if-goto exitLoop2
+push result
+push 1
+add
+pop result
+push j
+push 1
+add
+pop j
+goto enterLoop2
+label exitLoop2
+push i
+push 1
+add
+pop i
+goto enterLoop1
+label exitLoop1
+push result
+print

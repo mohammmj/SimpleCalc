@@ -28,11 +28,11 @@ public interface SimpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariableDecl(SimpleCalcParser.VariableDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link SimpleCalcParser#assigment}.
+	 * Visit a parse tree produced by {@link SimpleCalcParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssigment(SimpleCalcParser.AssigmentContext ctx);
+	T visitAssignment(SimpleCalcParser.AssignmentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpleCalcParser#whileLoop}.
 	 * @param ctx the parse tree

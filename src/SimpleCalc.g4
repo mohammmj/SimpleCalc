@@ -6,7 +6,7 @@ program
 
 statement
     : variableDecl
-    | assigment
+    | assignment
     | whileLoop
     | printStmt
     ;
@@ -15,7 +15,7 @@ variableDecl
     : 'variable' ID '=' expr
     ;
 
-assigment
+assignment
     : ID '=' expr
     ;
 

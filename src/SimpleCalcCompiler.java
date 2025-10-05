@@ -1,28 +1,21 @@
 import gen.SimpleCalcBaseListener;
-import gen.SimpleCalcListener;
 import gen.SimpleCalcParser;
-
 import java.util.*;
-
 
 public class SimpleCalcCompiler extends SimpleCalcBaseListener {
 
     private List<String> pseudoCode = new ArrayList<>();
-
     private Map<String, Integer> variables = new HashMap<>();
-
     private int nextVarIndex = 0;
-
     private Stack<Integer> loopStack = new Stack<>();
-
     private int nextLoopId = 1;
 
     public List<String> getPseudoCode() {
         return pseudoCode;
     }
 
+    @Override
     public void exitVariableDecl(SimpleCalcParser.VariableDeclContext ctx) {
-
         String varName = ctx.ID().getText();
 
         if (!variables.containsKey(varName)) {
@@ -31,8 +24,6 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         }
 
         pseudoCode.add("pop " + varName);
-
-
     }
 
     @Override
@@ -41,7 +32,6 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         if (ctx.NUMBER() != null) {
             String number = ctx.NUMBER().getText();
             pseudoCode.add("push " + number);
-
         }
 
         else if (ctx.ID() != null) {
@@ -50,7 +40,7 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         }
 
         else if (ctx.addOp() != null) {
-            String op = ctx.mulOp().getText();
+            String op = ctx.addOp().getText();
 
             if (op.equals("+")) {
                 pseudoCode.add("add");
@@ -70,23 +60,25 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         }
     }
 
+    @Override
     public void enterWhileLoop(SimpleCalcParser.WhileLoopContext ctx) {
         int loopId = nextLoopId;
         nextLoopId++;
 
         loopStack.push(loopId);
 
-        pseudoCode.add("label enterLoop " + loopId);
+        pseudoCode.add("label enterLoop" + loopId);
     }
 
+    @Override
     public void exitWhileLoop(SimpleCalcParser.WhileLoopContext ctx) {
         int loopId = loopStack.pop();
 
         pseudoCode.add("goto enterLoop" + loopId);
-
         pseudoCode.add("label exitLoop" + loopId);
     }
 
+    @Override
     public void exitCondition(SimpleCalcParser.ConditionContext ctx) {
 
         String op = ctx.compareOp().getText();
@@ -122,7 +114,19 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         pseudoCode.add("if-goto exitLoop" + loopId);
     }
 
+    @Override
     public void exitPrintStmt(SimpleCalcParser.PrintStmtContext ctx) {
         pseudoCode.add("print");
+    }
+
+    @Override
+    public void exitAssignment(SimpleCalcParser.AssignmentContext ctx) {
+        String varName = ctx.ID().getText();
+
+        if (!variables.containsKey(varName)) {
+            throw new RuntimeException("Variable '" + varName + "' not declared!");
+        }
+
+        pseudoCode.add("pop " + varName);
     }
 }

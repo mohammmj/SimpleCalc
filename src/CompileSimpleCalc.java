@@ -45,7 +45,7 @@ public class CompileSimpleCalc {
             System.out.println(line);
         }
 
-        String outputFile = inputFile.replace(".sc", ".pseudo");
+        String outputFile = inputFile.replace(".x", ".pseudo");
         PrintWriter writer = new PrintWriter(outputFile);
 
         for (String line : compiler.getPseudoCode()) {
