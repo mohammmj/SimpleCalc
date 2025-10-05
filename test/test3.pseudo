@@ -16,9 +16,3 @@ sub
 pop c
 push c
 print
-push a
-push b
-mul
-pop c
-push c
-print

@@ -16,9 +16,3 @@ sub
   pop static 2
   push static 2
   pop that 16384
-  push static 0
-  push static 1
-mul
-  pop static 2
-  push static 2
-  pop that 16384
