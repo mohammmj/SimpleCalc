@@ -2,18 +2,36 @@ import gen.SimpleCalcBaseListener;
 import gen.SimpleCalcParser;
 import java.util.*;
 
+/**
+ * Compiler for the SimpleCalc programming language
+ *
+ * @author Mohammad Jawadi
+ */
 public class SimpleCalcCompiler extends SimpleCalcBaseListener {
 
+    // List that collects all generated pseudocode
     private List<String> pseudoCode = new ArrayList<>();
+    // All variables and indices
     private Map<String, Integer> variables = new HashMap<>();
     private int nextVarIndex = 0;
+
+    // Stack to handle nested loops
+    // Each loop gets an ID that push onto the stack
     private Stack<Integer> loopStack = new Stack<>();
     private int nextLoopId = 1;
 
+    /**
+     *
+     * @return List of all pseudocode
+     */
     public List<String> getPseudoCode() {
         return pseudoCode;
     }
 
+    /**
+     * Handles variable declaration: variable x = 5
+     * @param ctx the parse tree
+     */
     @Override
     public void exitVariableDecl(SimpleCalcParser.VariableDeclContext ctx) {
         String varName = ctx.ID().getText();
@@ -26,6 +44,11 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         pseudoCode.add("pop " + varName);
     }
 
+    /**
+     * Handles expressions: numbers, variables, and operations.
+     * Generate push instructions
+     * @param ctx the parse tree
+     */
     @Override
     public void exitExpr(SimpleCalcParser.ExprContext ctx) {
 
@@ -49,17 +72,12 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
             }
         }
 
-        else if (ctx.mulOp() != null) {
-            String op = ctx.mulOp().getText();
-
-            if (op.equals("*")) {
-                pseudoCode.add("mul");
-            } else if(op.equals("/")) {
-                pseudoCode.add("div");
-            }
-        }
     }
 
+    /**
+     * Called when entering a while loop.
+     * @param ctx the parse tree
+     */
     @Override
     public void enterWhileLoop(SimpleCalcParser.WhileLoopContext ctx) {
         int loopId = nextLoopId;
@@ -70,6 +88,10 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         pseudoCode.add("label enterLoop" + loopId);
     }
 
+    /**
+     * Generates goto back to start and exit label.
+     * @param ctx the parse tree
+     */
     @Override
     public void exitWhileLoop(SimpleCalcParser.WhileLoopContext ctx) {
         int loopId = loopStack.pop();
@@ -78,6 +100,11 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         pseudoCode.add("label exitLoop" + loopId);
     }
 
+    /**
+     * The logic inverts the condition because if-goto jumps when TRUE,
+     * but we want to exit the loop when the condition is FALSE.
+     * @param ctx the parse tree
+     */
     @Override
     public void exitCondition(SimpleCalcParser.ConditionContext ctx) {
         String op = ctx.compareOp().getText();
@@ -110,11 +137,19 @@ public class SimpleCalcCompiler extends SimpleCalcBaseListener {
         pseudoCode.add("if-goto exitLoop" + loopId);
     }
 
+    /**
+     * Handels print statement
+     * @param ctx the parse tree
+     */
     @Override
     public void exitPrintStmt(SimpleCalcParser.PrintStmtContext ctx) {
         pseudoCode.add("print");
     }
 
+    /**
+     * Checks that variable exists and generates pop instruction.
+     * @param ctx the parse tree
+     */
     @Override
     public void exitAssignment(SimpleCalcParser.AssignmentContext ctx) {
         String varName = ctx.ID().getText();

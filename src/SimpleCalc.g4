@@ -36,8 +36,7 @@ compareOp
     ;
 
 expr
-    : expr mulOp expr
-    | expr addOp expr
+    : expr addOp expr
     | ID
     | NUMBER
     | '(' expr ')'
@@ -47,9 +46,6 @@ addOp
     : '+' | '-'
     ;
 
-mulOp
-    : '*' | '/'
-    ;
 
 ID
      : [a-zA-Z_][a-zA-Z_0-9]*

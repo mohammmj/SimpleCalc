@@ -4,7 +4,14 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import java.io.*;
 
-
+/**
+ * Main program for the SimpleCalc compiler
+ * Reads a file and the compiles it to pseudocode
+ *
+ * Usage: java SimpleCalc <input-file>
+ *
+ * @author Mohammad Jawadi
+ */
 public class CompileSimpleCalc {
 
     public static void main(String[] args) throws Exception {
@@ -15,14 +22,17 @@ public class CompileSimpleCalc {
         }
 
         String inputFile = args[0];
-        System.err.println("Compiling: " + inputFile);
+        System.out.println("Compiling: " + inputFile);
 
+        // reads the input file
         CharStream input = CharStreams.fromFileName(inputFile);
-
+        // create lexer that breaks code to token
         SimpleCalcLexer lexer = new SimpleCalcLexer(input);
 
+        // create token stream
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
+        // create parser
         SimpleCalcParser parser = new SimpleCalcParser(tokens);
 
         ParseTree tree = parser.program();
@@ -54,8 +64,7 @@ public class CompileSimpleCalc {
 
         writer.close();
 
-        System.err.println();
-        System.err.println("Pseudocode saved to: " + outputFile);
-        System.err.println("Now start: java -jar lib/nand2tetris-vm-translator.jar " + outputFile);
+        System.out.println();
+        System.out.println("Pseudocode saved to: " + outputFile);
     }
 }
